@@ -90,9 +90,9 @@
         let cloneTag = $rollingLi.clone();
         cloneTag.map(function(idx, el){
             if(cloneTag.length == idx+1) {
-                $rollingTxt.prepend($(el).removeClass("on"));
+                $rollingTxt.prepend($(el).removeClass('on'));
             } else {
-                $rollingTxt.append($(el).removeClass("on"));
+                $rollingTxt.append($(el).removeClass('on'));
             }            
         });
     }
@@ -100,7 +100,7 @@
     function animationClone(){
         let cloneTag = $rollingLi.clone();
         cloneTag.map(function(idx, el){
-            $rollingTxt.append($(el).removeClass("on"));      
+            $rollingTxt.append($(el).removeClass('on'));      
         });
     }
 
@@ -108,30 +108,25 @@
         let txtH = $rollingTxt.find('li').innerHeight();
         
         if( ($rollingLi.length*2) - 1 == idx ) {
-            idx = 2;
-            $(".rolling-txt li").css("transition", "none")
-            $(".rolling-txt li.on").css("transition", "none")
-            $rollingTxt.css("top","-28px");
+            // idx = 2;
+            // $('.rolling-txt li').css({'transition' : 'none'});
+            // $('.rolling-txt li.on').css({'transition' : 'none'});
+            // $rollingTxt.css({'top' : '-28px'});
         }
 
         $rollingTxt.find('li').eq(idx).addClass('on').siblings().removeClass('on');
-        if(idx == 2) {
-            $(".rolling-txt li").css("transition", "padding 1s");
-            $(".rolling-txt li.on").css("transition", "padding 1s");
-        }
-        $rollingTxt.animate({
-            top: -28*idx + 'px'
-        }, {
-            duration: 1000,
-            step: function( now, fx ) {
-                console.log(now);
-            },
-            complete: function(){
-                idx++;
-                setTimeout(function(){
-                    rollingTxt();
-                }, 750);
+        $rollingTxt.animate({top: -28*idx + 'px'}, 1000, function(){
+            if(idx % 3 == 2){
+                animationClone();
             }
+            // if(idx == 3) {
+            //     $(".rolling-txt li").css({'transition' : 'padding 1s'});
+            //     $(".rolling-txt li.on").css({'transition' : 'padding 1s'});
+            // }
+            idx++;
+            setTimeout(function(){
+                rollingTxt();
+            }, 750);
         });
     }
 
